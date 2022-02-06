@@ -2,16 +2,19 @@
 const express = require("express");
 const config = require("config");
 const mongoose = require("mongoose");
+const AUTH_ROUTES = require("./routes/auth-routes");
+const LINK_ROUTES = require("./routes/link-routes");
 // imports end
 
 // constants start
 const MONGO_URI = config.get("mongoUri");
 const PORT = config.get("port") || 5000;
-const AUTH_ROUTE = require("./routes/auth.routes");
 const app = express();
 // constants start
 
-app.use("/api/auth", AUTH_ROUTE);
+app.use(express.json());
+app.use("/api/auth", AUTH_ROUTES);
+app.use("/api/link", LINK_ROUTES);
 
 async function start() {
   try {

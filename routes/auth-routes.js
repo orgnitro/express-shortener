@@ -31,6 +31,7 @@ router.post(
       }
       const { email, password } = req.body;
       const candidate = await User.findOne({ email });
+      console.log("candidate", candidate);
 
       if (candidate) {
         return res.status(400).json({ message: "Such user already exists" });
@@ -39,7 +40,7 @@ router.post(
       const hashedPassword = await Bcrypt.hash(password, 12);
       const user = new User({ email, password: hashedPassword });
       await user.save();
-      req.status(201).json({ message: "User has been successfully created" });
+      res.status(201).json({ message: "User has been successfully created" });
     } catch (e) {
       res
         .status(500)
@@ -47,6 +48,8 @@ router.post(
     }
   }
 );
+
+// api/auth/login
 router.post(
   "/login",
   [
@@ -71,7 +74,7 @@ router.post(
         return res.status(400).json({ message: "User was not found" });
       }
 
-      const passwordMatch = await bcrypt.compare(password, user.password);
+      const passwordMatch = await Bcrypt.compare(password, user.password);
       if (!passwordMatch) {
         return res
           .status(400)

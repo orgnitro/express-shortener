@@ -1,9 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { LinksPage } from "./pages/links-page";
-import { CreatePage } from "./pages/create-page";
-import { DetailPage } from "./pages/detail-page";
-import { AuthPage } from "./pages/auth-page";
+import { LinksPage, CreatePage, DetailPage, AuthPage } from "../pages/pages";
 
 export const useRoutes = (isAuthenticated) => {
   if (isAuthenticated) {
@@ -35,3 +32,5 @@ const UnauthenticatedRoutes = () => (
     <Redirect to="/" />
   </Switch>
 );
+
+export default useRoutes;

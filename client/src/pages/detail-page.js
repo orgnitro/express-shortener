@@ -7,3 +7,5 @@ export const DetailPage = () => {
     </div>
   );
 };
+
+export default DetailPage;

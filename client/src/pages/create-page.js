@@ -7,3 +7,5 @@ export const CreatePage = () => {
     </div>
   );
 };
+
+export default CreatePage;

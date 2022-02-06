@@ -7,3 +7,5 @@ export const LinksPage = () => {
     </div>
   );
 };
+
+export default LinksPage;
