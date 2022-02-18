@@ -13,9 +13,9 @@ module.exports = async (req, res, next) => {
       res.status(401).json({ message: "You are not authorized" });
     }
     decodedToken = Jwt.verify(token, Config.get("jwtSecret"));
+    req.user = decodedToken;
     next();
   } catch (e) {
     res.status(401).json({ message: "You are not authorized" });
   }
-  req.user = decodedToken;
 };

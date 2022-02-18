@@ -5,7 +5,6 @@ const { check, validationResult } = require("express-validator");
 const Bcrypt = require("bcryptjs");
 const Jwt = require("jsonwebtoken");
 const User = require("../models/User");
-
 // imports end
 
 // constants start
@@ -42,9 +41,10 @@ router.post(
       await user.save();
       res.status(201).json({ message: "User has been successfully created" });
     } catch (e) {
-      res
-        .status(500)
-        .json({ message: "Something went wrong on server. Error code 500" });
+      res.status(500).json({
+        message: "Something went wrong on server. Error code 500",
+        error: JSON.stringify(e),
+      });
     }
   }
 );
@@ -89,7 +89,10 @@ router.post(
     } catch (e) {
       res
         .status(500)
-        .json({ message: "Something went wrong on server. Error code 500" });
+        .json({
+          message: "Something went wrong on server. Error code 500",
+          error: JSON.stringify(e),
+        });
     }
   }
 );

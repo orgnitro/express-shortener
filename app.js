@@ -4,6 +4,7 @@ const config = require("config");
 const mongoose = require("mongoose");
 const AUTH_ROUTES = require("./routes/auth-routes");
 const LINK_ROUTES = require("./routes/link-routes");
+const REDIRECT_ROUTES = require("./routes/redirect-routes");
 // imports end
 
 // constants start
@@ -15,6 +16,7 @@ const app = express();
 app.use(express.json());
 app.use("/api/auth", AUTH_ROUTES);
 app.use("/api/link", LINK_ROUTES);
+app.use("/t/", REDIRECT_ROUTES);
 
 async function start() {
   try {

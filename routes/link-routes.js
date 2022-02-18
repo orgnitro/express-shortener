@@ -27,9 +27,10 @@ router.post("/generate", auth, async (req, res) => {
     });
   } catch (e) {
     console.log(e);
-    res
-      .status(500)
-      .json({ message: "Something went wrong on server. Error code 500" });
+    res.status(500).json({
+      message: "Something went wrong on server. Error code 500",
+      error: JSON.stringify(e),
+    });
   }
   await link.save();
   res.status(201).json({ link, message: "Link has been successfully created" });
@@ -39,9 +40,11 @@ router.get("/", auth, async (req, res) => {
     const links = await Link.find({ owner: req.user.userId });
     res.json(links);
   } catch (e) {
-    res
-      .status(500)
-      .json({ message: "Something went wrong on server. Error code 500" });
+    console.log("ERROR IS: ", e);
+    res.status(500).json({
+      message: "Something went wrong on server. Error code 500",
+      error: JSON.stringify(e),
+    });
   }
 });
 router.get("/:id", auth, async (req, res) => {
@@ -50,10 +53,10 @@ router.get("/:id", auth, async (req, res) => {
     link = await Link.findById(req.params.id);
     res.json(link);
   } catch (e) {
-    console.log("ERROR IS:", e);
-    res
-      .status(500)
-      .json({ message: "Something went wrong on server. Error code 500" });
+    res.status(500).json({
+      message: "Something went wrong on server. Error code 500",
+      error: JSON.stringify(e),
+    });
   }
 });
 
