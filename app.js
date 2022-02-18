@@ -2,6 +2,7 @@
 const express = require("express");
 const config = require("config");
 const mongoose = require("mongoose");
+const path = require("path");
 const AUTH_ROUTES = require("./routes/auth-routes");
 const LINK_ROUTES = require("./routes/link-routes");
 const REDIRECT_ROUTES = require("./routes/redirect-routes");
@@ -17,6 +18,14 @@ app.use(express.json());
 app.use("/api/auth", AUTH_ROUTES);
 app.use("/api/link", LINK_ROUTES);
 app.use("/t/", REDIRECT_ROUTES);
+
+if (process.env.NODE_ENV === "production") {
+  app.use("/", express.static(path.join(__dirname, "client", "build")));
+  
+  app.get("*", (req,res)=>{
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  })
+}
 
 async function start() {
   try {
