@@ -10,7 +10,7 @@ const REDIRECT_ROUTES = require("./routes/redirect-routes");
 
 // constants start
 const MONGO_URI = config.get("mongoUri");
-const PORT = config.get("port") || 5000;
+const PORT = process.env.PORT || 5000;
 const app = express();
 // constants start
 
